@@ -2,8 +2,8 @@
 
 # Variables
 resourceGroup="acdnd-c4-project"
-location="westeurope"
-osType="UbuntuLTS"
+location="westus"
+osType="Ubuntu2204"
 vmssName="udacity-vmss"
 adminName="udacityadmin"
 storageAccount="udacitydiag$RANDOM"
@@ -14,19 +14,19 @@ nsgName="$vmssName-nsg"
 vnetName="$vmssName-vnet"
 subnetName="$vnetName-subnet"
 probeName="tcpProbe"
-vmSize="Standard_B1ls"
+vmSize="Standard_B1s"
 storageType="Standard_LRS"
 
-# Create resource group.
-# This command will not work for the Cloud Lab users.
-# Cloud Lab users can comment this command and
-# use the existing Resource group name, such as, resourceGroup="cloud-demo-153430"
+# Create resource group. 
+# This command will not work for the Cloud Lab users. 
+# Cloud Lab users can comment this command and 
+# use the existing Resource group name, such as, resourceGroup="cloud-demo-153430" 
 echo "STEP 0 - Creating resource group $resourceGroup..."
 
 az group create \
-  --name $resourceGroup \
-  --location $location \
-  --verbose
+--name $resourceGroup \
+--location $location \
+--verbose
 
 echo "Resource group created: $resourceGroup"
 
@@ -34,10 +34,10 @@ echo "Resource group created: $resourceGroup"
 echo "STEP 1 - Creating storage account $storageAccount"
 
 az storage account create \
-  --name $storageAccount \
-  --resource-group $resourceGroup \
-  --location $location \
-  --sku Standard_LRS
+--name $storageAccount \
+--resource-group $resourceGroup \
+--location $location \
+--sku Standard_LRS
 
 echo "Storage account created: $storageAccount"
 
@@ -45,9 +45,9 @@ echo "Storage account created: $storageAccount"
 echo "STEP 2 - Creating network security group $nsgName"
 
 az network nsg create \
-  --resource-group $resourceGroup \
-  --name $nsgName \
-  --verbose
+--resource-group $resourceGroup \
+--name $nsgName \
+--verbose
 
 echo "Network security group created: $nsgName"
 
@@ -69,7 +69,7 @@ az vmss create \
   --upgrade-policy-mode automatic \
   --admin-username $adminName \
   --generate-ssh-keys \
-  --verbose
+  --verbose 
 
 echo "VM scale set created: $vmssName"
 
@@ -77,11 +77,11 @@ echo "VM scale set created: $vmssName"
 echo "STEP 4 - Associating NSG: $nsgName with subnet: $subnetName"
 
 az network vnet subnet update \
-  --resource-group $resourceGroup \
-  --name $subnetName \
-  --vnet-name $vnetName \
-  --network-security-group $nsgName \
-  --verbose
+--resource-group $resourceGroup \
+--name $subnetName \
+--vnet-name $vnetName \
+--network-security-group $nsgName \
+--verbose
 
 echo "NSG: $nsgName associated with subnet: $subnetName"
 
@@ -121,13 +121,13 @@ echo "Network load balancer rule created: $lbRule"
 echo "STEP 7 - Adding port 80 to NSG $nsgName"
 
 az network nsg rule create \
-  --resource-group $resourceGroup \
-  --nsg-name $nsgName \
-  --name Port_80 \
-  --destination-port-ranges 80 \
-  --direction Inbound \
-  --priority 100 \
-  --verbose
+--resource-group $resourceGroup \
+--nsg-name $nsgName \
+--name Port_80 \
+--destination-port-ranges 80 \
+--direction Inbound \
+--priority 100 \
+--verbose
 
 echo "Port 80 added to NSG: $nsgName"
 
@@ -135,13 +135,13 @@ echo "Port 80 added to NSG: $nsgName"
 echo "STEP 8 - Adding port 22 to NSG $nsgName"
 
 az network nsg rule create \
-  --resource-group $resourceGroup \
-  --nsg-name $nsgName \
-  --name Port_22 \
-  --destination-port-ranges 22 \
-  --direction Inbound \
-  --priority 110 \
-  --verbose
+--resource-group $resourceGroup \
+--nsg-name $nsgName \
+--name Port_22 \
+--destination-port-ranges 22 \
+--direction Inbound \
+--priority 110 \
+--verbose
 
 echo "Port 22 added to NSG: $nsgName"
 

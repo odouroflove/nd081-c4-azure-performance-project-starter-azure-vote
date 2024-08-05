@@ -14,7 +14,7 @@ nsgName="$vmssName-nsg"
 vnetName="$vmssName-vnet"
 subnetName="$vnetName-subnet"
 probeName="tcpProbe"
-vmSize="Standard_B1s"
+vmSize="Standard_B1ls"
 storageType="Standard_LRS"
 
 # Create resource group. 
@@ -146,3 +146,4 @@ az network nsg rule create \
 echo "Port 22 added to NSG: $nsgName"
 
 echo "VMSS script completed!"
+
